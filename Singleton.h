@@ -11,9 +11,13 @@ private:
 	static inline T* mSingleTon{ nullptr };
 
 public:
-	ISingleton(bool SingletonChangable = false)
+	/// <summary>
+	/// Setting SingletonChangable true is not recommended
+	/// </summary>
+	/// <param name="takeOverSingleton">if true, this object will be Singleton even if single already exist</param>
+	ISingleton(bool takeOverSingleton = false)
 	{
-		if (SingletonChangable == false)
+		if (takeOverSingleton == false)
 		{
 			assert(mSingleTon == nullptr);
 		}
@@ -24,7 +28,6 @@ public:
 	{
 		if (mSingleTon != nullptr && mSingleTon == dynamic_cast<T*>(this))
 		{
-			delete mSingleTon;
 			mSingleTon = nullptr;
 		}
 	}
